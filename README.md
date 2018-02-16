@@ -12,7 +12,7 @@
        [CalcMD5Test.java](java/hash/CalcMD5Test.java),
        [HashChecker.java](java/hash/HashChecker.java)
     * [Откомпилированные тесты](artifacts/hash/CalcMD5Test.jar)
- * *Для M3136*
+ * *Для M3136, 37*
     * Напишите простой аналог утилиты [sha256sum](http://linux.die.net/man/1/sha256sum)
     * Класс должен называться `SHA256Sum`
     * Список файлов для хэширования передается в виде аргументов командной строки
