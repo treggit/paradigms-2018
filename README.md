@@ -20,6 +20,10 @@
     * Вывод хэшей осуществляется в формате `<хэш> *<имя файла>`
     * [Исходный код тестов](java/hash/SHA256SumTest.java)
     * [Откомпилированные тесты](artifacts/hash/SumSHA256Test.jar)
+ * *Для M3138, 39*
+    * Класс должен иметь имя `CalcSHA256` и подсчитывать [SHA-256](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm)
+    * [Исходный код тестов](java/hash/CalcSHA256Test.java)
+    * [Откомпилированные тесты](artifacts/hash/CalcSHA256Test.jar)
 
 Для того, чтобы протестировать базовую модификацию домашнего задания:
 
