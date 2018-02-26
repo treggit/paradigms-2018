@@ -7,6 +7,7 @@
 
 Модификации
  * *Базовая*
+ 	* Класс `BinarySearch` должен находиться в пакете `search`
     * [Исходный код тестов](java/search/BinarySearchTest.java)
     * [Откомпилированные тесты](artifacts/search/BinarySearchTest.jar)
 
