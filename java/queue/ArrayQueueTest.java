@@ -43,7 +43,7 @@ public class ArrayQueueTest<T extends ArrayQueueTest.Queue> extends Asserts {
 
     protected void test(final String className, final int step, final Mode... modes) {
         for (final Mode mode : modes) {
-            System.err.println("Running " + getClass().getName() + " in " + mode + " mode");
+            System.err.printf("Running %s for %s in %s mode%n", getClass().getName(), className, mode);
             test(className, mode, step);
         }
         counter.printStatus(getClass());
