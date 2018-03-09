@@ -1,8 +1,8 @@
 package queue;
 
 public class ArrayQueue extends AbstractQueue {
-    private int head = 0, tail = 0;
     private Object[] elements = new Object[5];
+    private int head = 0, tail = 0;
 
     private void ensureCapacity(int capacity) {
         if (capacity < elements.length) {

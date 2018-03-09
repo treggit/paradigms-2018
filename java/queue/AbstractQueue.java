@@ -34,14 +34,27 @@ public abstract class AbstractQueue implements Queue {
     public abstract void clear();
 
     protected abstract Object get(Object obj);
+
     protected abstract Object getHead();
+
     protected abstract Object getTail();
+
     protected abstract Object inc(Object obj);
+
+    protected boolean equal(Object a, Object b) {
+        if (a == null && b == null) {
+            return true;
+        }
+        if (a == null || b == null) {
+            return false;
+        }
+        return a.equals(b);
+    }
 
     protected Object[] toArray(int capacity) {
         Object[] array = new Object[capacity];
         int j = 0;
-        for (Object i = getHead(); !i.equals(getTail()); i = inc(i), j++) {
+        for (Object i = getHead(); !equal(i, getTail()); i = inc(i), j++) {
             array[j] = get(i);
         }
         return array;
