@@ -9,6 +9,9 @@
  * *Базовая*
     * Реализовать интерфейс [Expression](java/expression/Expression.java)
     * [Исходный код тестов](java/expression/ExpressionTest.java)
+ * *Простая*
+    * Реализовать интерфейс [DoubleExpression](java/expression/DoubleExpression.java)
+    * [Исходный код тестов](java/expression/DoubleExpressionTest.java)
 
 
 ## Домашнее задание 4. Очередь на связном списке
