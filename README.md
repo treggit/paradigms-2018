@@ -12,6 +12,9 @@
  * *Простая*
     * Реализовать интерфейс [DoubleExpression](java/expression/DoubleExpression.java)
     * [Исходный код тестов](java/expression/DoubleExpressionTest.java)
+ * *Усложненная*
+    * Реализовать интерфейсы [DoubleExpression](java/expression/DoubleExpression.java) и [TripleExpression](java/expression/TripleExpression.java)
+    * [Исходный код тестов](java/expression/TripleExpressionTest.java)
 
 
 ## Домашнее задание 4. Очередь на связном списке
