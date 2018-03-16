@@ -9,17 +9,17 @@ public abstract class AbstractQueue implements Queue {
         add(element);
     }
 
+    protected abstract Object getHead();
+
     public Object element() {
         assert size() > 0;
 
-        return get(getHead());
+        return getHead();
     }
 
     protected abstract void removeHead();
 
     public Object dequeue() {
-        assert size() > 0;
-
         Object element = element();
         removeHead();
         return element;
@@ -33,29 +33,18 @@ public abstract class AbstractQueue implements Queue {
 
     public abstract void clear();
 
-    protected abstract Object get(Object obj);
-
-    protected abstract Object getHead();
-
-    protected abstract Object getTail();
-
-    protected abstract Object inc(Object obj);
-
-    protected boolean equal(Object a, Object b) {
+    private boolean equal(Object a, Object b) {
         if (a == null && b == null) {
             return true;
         }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
+        return a != null && b != null && a.equals(b);
     }
 
     protected Object[] toArray(int capacity) {
         Object[] array = new Object[capacity];
-        int j = 0;
-        for (Object i = getHead(); !equal(i, getTail()); i = inc(i), j++) {
-            array[j] = get(i);
+        for (int i = 0; i < size(); i++) {
+            array[i] = dequeue();
+            enqueue(array[i]);
         }
         return array;
     }

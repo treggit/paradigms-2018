@@ -31,28 +31,14 @@ public class LinkedQueue extends AbstractQueue{
     }
 
     protected void removeHead() {
-        Node newHead = inc(head);
+        Node newHead = head.next;
         head = null;
         head = newHead;
         size--;
     }
 
     protected Object getHead() {
-        return head;
-    }
-
-    protected Object getTail() {
-        return null;
-    }
-
-    protected Object get(Object obj) {
-        Node node = (Node) obj;
-        return node.value;
-    }
-
-    protected Node inc(Object obj) {
-        Node node = (Node) obj;
-        return node.next;
+        return head.value;
     }
 
     public int size() {

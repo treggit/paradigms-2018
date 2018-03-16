@@ -26,21 +26,12 @@ public class ArrayQueue extends AbstractQueue {
         head = inc(head);
     }
 
-    protected Integer getHead() {
-        return head;
+    protected Object getHead() {
+        return elements[head];
     }
 
-    protected Integer getTail() {
-        return tail;
-    }
-
-    protected Object get(Object position) {
-
-        return elements[(Integer) position];
-    }
-
-    protected Integer inc(Object position) {
-        return (((Integer) position) + 1) % elements.length;
+    private int inc(int position) {
+        return (position + 1) % elements.length;
     }
 
     public int size() {
