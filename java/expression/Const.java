@@ -1,14 +1,17 @@
 package expression;
 
-public class Const implements Expression {
-    private int value;
+public class Const implements AnyExpression {
+    private Number value;
 
-    Const(int value) {
+    Const(Number value) {
         this.value = value;
     }
 
-    @Override
     public int evaluate(int x) {
-        return value;
+        return value.intValue();
+    }
+
+    public double evaluate(double x) {
+        return value.doubleValue();
     }
 }

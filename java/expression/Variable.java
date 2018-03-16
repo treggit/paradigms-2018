@@ -1,7 +1,7 @@
 package expression;
 
-public class Variable implements Expression {
-    private int value;
+public class Variable implements AnyExpression {
+    private Number value;
     private String name;
 
     Variable(String name) {
@@ -10,6 +10,11 @@ public class Variable implements Expression {
 
     public int evaluate(int x) {
         value = x;
-        return value;
+        return value.intValue();
+    }
+
+    public double evaluate(double x) {
+        value = x;
+        return value.doubleValue();
     }
 }
