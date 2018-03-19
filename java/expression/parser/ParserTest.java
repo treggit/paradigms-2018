@@ -2,7 +2,6 @@ package expression.parser;
 
 import expression.BaseTest;
 import expression.CommonExpression;
-import expression.Either;
 import expression.TripleExpression;
 
 import java.util.ArrayList;
