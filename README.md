@@ -3,6 +3,17 @@
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Домашнее задание 6. Разбор выражений
+
+Модификации
+ * *Базовая*
+    * Класс `ExpressionParser` должен реализовывать интерфейс
+        [Parser](java/expression/parser/Parser.java)
+    * Результат разбора должен реализовывать интерфейс
+        [TripleExpression](java/expression/TripleExpression.java)
+    * [Исходный код тестов](java/expression/parser/ParserTest.java)
+
+
 ## Домашнее задание 5. Вычисление выражений
 
 Модификации
@@ -12,6 +23,9 @@
  * *Простая*
     * Реализовать интерфейс [DoubleExpression](java/expression/DoubleExpression.java)
     * [Исходный код тестов](java/expression/DoubleExpressionTest.java)
+ * *Сложная*
+    * Реализовать интерфейсы [DoubleExpression](java/expression/DoubleExpression.java) и [TripleExpression](java/expression/TripleExpression.java)
+    * [Исходный код тестов](java/expression/TripleExpressionTest.java)
 
 
 ## Домашнее задание 4. Очередь на связном списке
@@ -29,7 +43,7 @@
     * Дублирования кода быть не должно
     * [Исходный код тестов](java/queue/QueueToArrayTest.java)
     * [Откомпилированные тесты](artifacts/queue/QueueToArrayTest.jar)
- * *Усложненная*
+ * *Сложная*
     * Добавить в интерфейс очереди и реализовать методы
         * `filter(predicate)` – создать очередь, содержащую элементы, удовлетворяющие
             [предикату](https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html)
@@ -58,7 +72,7 @@
     * Дублирования кода быть не должно
     * [Исходный код тестов](java/queue/ArrayQueueToArrayTest.java)
     * [Откомпилированные тесты](artifacts/queue/ArrayQueueToArrayTest.jar)
- * *Усложненная*
+ * *Сложная*
     * Реализовать методы
         * `push` – добавить элемент в начало очереди
         * `peek` – вернуть последний элемент в очереди
@@ -81,7 +95,7 @@
     * Класс должен иметь имя `BinarySearchMissing`
     * [Исходный код тестов](java/search/BinarySearchMissingTest.java)
     * [Откомпилированные тесты](artifacts/search/BinarySearchMissingTest.jar)
- * *Усложненная*
+ * *Сложная*
     * Требуется вывести два числа: начало и длину диапазона элементов,
       равных `x`. Если таких элементов нет, то следует вывести
       пустой диапазон, у которого левая граница совпадает с местом
@@ -100,6 +114,10 @@
        [CalcMD5Test.java](java/hash/CalcMD5Test.java),
        [HashChecker.java](java/hash/HashChecker.java)
     * [Откомпилированные тесты](artifacts/hash/CalcMD5Test.jar)
+ * *Для M3138, 39*
+    * Класс должен иметь имя `CalcSHA256` и подсчитывать [SHA-256](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm)
+    * [Исходный код тестов](java/hash/CalcSHA256Test.java)
+    * [Откомпилированные тесты](artifacts/hash/CalcSHA256Test.jar)
  * *Для M3136, 37*
     * Напишите простой аналог утилиты [sha256sum](http://linux.die.net/man/1/sha256sum)
     * Класс должен называться `SHA256Sum`
@@ -108,10 +126,6 @@
     * Вывод хэшей осуществляется в формате `<хэш> *<имя файла>`
     * [Исходный код тестов](java/hash/SHA256SumTest.java)
     * [Откомпилированные тесты](artifacts/hash/SHA256SumTest.jar)
- * *Для M3138, 39*
-    * Класс должен иметь имя `CalcSHA256` и подсчитывать [SHA-256](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm)
-    * [Исходный код тестов](java/hash/CalcSHA256Test.java)
-    * [Откомпилированные тесты](artifacts/hash/CalcSHA256Test.jar)
 
 Для того, чтобы протестировать базовую модификацию домашнего задания:
 
