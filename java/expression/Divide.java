@@ -1,8 +1,8 @@
 package expression;
 
-public class Divide extends Operator {
+public class Divide extends BinaryOperator {
 
-    Divide(AnyExpression firstOperand, AnyExpression secondOperand) {
+    public Divide(CommonExpression firstOperand, CommonExpression secondOperand) {
         super(firstOperand, secondOperand);
     }
 

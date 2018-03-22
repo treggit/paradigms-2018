@@ -1,8 +1,8 @@
 package expression;
 
-public class Subtract extends Operator {
+public class Subtract extends BinaryOperator {
 
-    Subtract(AnyExpression firstOperand, AnyExpression secondOperand) {
+    public Subtract(CommonExpression firstOperand, CommonExpression secondOperand) {
         super(firstOperand, secondOperand);
     }
 

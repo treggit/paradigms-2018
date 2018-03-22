@@ -1,8 +1,8 @@
 package expression;
 
-public class Multiply extends Operator {
+public class Multiply extends BinaryOperator {
 
-    Multiply(AnyExpression firstOperand, AnyExpression secondOperand) {
+    public Multiply(CommonExpression firstOperand, CommonExpression secondOperand) {
         super(firstOperand, secondOperand);
     }
 

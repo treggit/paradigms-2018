@@ -1,9 +1,9 @@
 package expression;
 
-public abstract class Operator implements AnyExpression {
-    private AnyExpression firstOperand, secondOperand;
+public abstract class BinaryOperator implements CommonExpression {
+    private CommonExpression firstOperand, secondOperand;
 
-    public Operator(AnyExpression a, AnyExpression b) {
+    public BinaryOperator(CommonExpression a, CommonExpression b) {
         firstOperand = a;
         secondOperand = b;
     }
@@ -19,4 +19,7 @@ public abstract class Operator implements AnyExpression {
         return calc(firstOperand.evaluate(x), secondOperand.evaluate(x));
     }
 
+    public int evaluate(int x, int y, int z) {
+        return calc(firstOperand.evaluate(x, y, z), secondOperand.evaluate(x, y, z));
+    }
 }
