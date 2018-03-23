@@ -14,10 +14,6 @@ public abstract class UnaryOperator implements CommonExpression {
         return calc(operand.evaluate(x));
     }
 
-    public double evaluate(double x) {
-        return calc(operand.evaluate(x));
-    }
-
     public int evaluate(int x, int y, int z) {
         return calc(operand.evaluate(x, y, z));
     }

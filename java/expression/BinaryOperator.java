@@ -9,13 +9,8 @@ public abstract class BinaryOperator implements CommonExpression {
     }
 
     protected abstract int calc(int a, int b);
-    protected abstract double calc(double a, double b);
 
     public int evaluate(int x) {
-        return calc(firstOperand.evaluate(x), secondOperand.evaluate(x));
-    }
-
-    public double evaluate(double x) {
         return calc(firstOperand.evaluate(x), secondOperand.evaluate(x));
     }
 

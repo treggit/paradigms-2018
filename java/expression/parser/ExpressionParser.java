@@ -8,13 +8,14 @@ public class ExpressionParser implements Parser{
     private int exprPointer = 0;
     private String expression;
     private int number;
-    private char name;
+    private String name;
     private Token curToken;
 
     private enum Token{
             MUL, DIV, PLUS,
             MINUS, CL_BR, OP_BR,
-            NUM, VAR, END
+            NUM, VAR, END,
+            XOR, AND, OR
     }
 
     private void skipWhitespaces() {
@@ -26,10 +27,20 @@ public class ExpressionParser implements Parser{
     private int getNumberValue() {
         int res = 0;
         while (exprPointer < expression.length() && Character.isDigit(expression.charAt(exprPointer))) {
-            res = res * 10 + Character.digit(expression.charAt(exprPointer), 10);
+            int dig = Character.digit(expression.charAt(exprPointer), 10);
+            res = res * 10 + dig;
             exprPointer++;
         }
         return res;
+    }
+
+    private String getName() {
+        StringBuilder sb = new StringBuilder();
+        while (exprPointer < expression.length() && Character.isLetter(expression.charAt(exprPointer))) {
+            sb.append(expression.charAt(exprPointer));
+            exprPointer++;
+        }
+        return sb.toString();
     }
 
     private Token getToken() {
@@ -52,13 +63,19 @@ public class ExpressionParser implements Parser{
                 return Token.OP_BR;
             case ')':
                 return Token.CL_BR;
+            case '|':
+                return Token.OR;
+            case '&':
+                return Token.AND;
+            case '^':
+                return Token.XOR;
             default:
+                exprPointer--;
                 if (Character.isDigit(ch)) {
-                    exprPointer--;
                     number = getNumberValue();
                     return Token.NUM;
                 }
-                name = Character.toLowerCase(ch);
+                name = getName();
                 return Token.VAR;
         }
     }
@@ -71,11 +88,11 @@ public class ExpressionParser implements Parser{
                 return new Const(number);
             case VAR:
                 curToken = getToken();
-                return new Variable(Character.toString(name));
+                return new Variable(name);
             case MINUS:
                 return new UnaryMinus(exprHigh());
             case OP_BR:
-                CommonExpression expr = exprLow();
+                CommonExpression expr = expr();
                 curToken = getToken();
                 return expr;
             default:
@@ -107,13 +124,53 @@ public class ExpressionParser implements Parser{
                     expr = new Add(expr, exprMid());
                     break;
                 case MINUS:
-                    expr = new Subtract(expr, exprMid());
+                    CommonExpression e = exprMid();
+                    expr = new Subtract(expr, e);
                     break;
                 default:
                     return expr;
             }
         }
+    }
 
+    private CommonExpression exprAnd() {
+        CommonExpression expr = exprLow();
+
+        while (true) {
+            if (curToken == Token.AND) {
+                expr = new And(expr, exprLow());
+            } else {
+                return expr;
+            }
+        }
+    }
+
+    private CommonExpression exprXor() {
+        CommonExpression expr = exprAnd();
+
+        while (true) {
+            if (curToken == Token.XOR) {
+                expr = new Xor(expr, exprAnd());
+            } else {
+                return expr;
+            }
+        }
+    }
+
+    private CommonExpression exprOr() {
+        CommonExpression expr = exprXor();
+
+        while (true) {
+            if (curToken == Token.OR) {
+                expr = new Or(expr, exprXor());
+            } else {
+                return expr;
+            }
+        }
+    }
+
+    private CommonExpression expr() {
+        return exprOr();
     }
 
 
@@ -121,6 +178,6 @@ public class ExpressionParser implements Parser{
     public CommonExpression parse(String expression) {
         this.expression = expression;
         exprPointer = 0;
-        return exprLow();
+        return expr();
     }
 }
