@@ -8,7 +8,7 @@ import java.util.function.Function;
 public interface Either<L, R> {
     <NR> Either<L, NR> flatMapRight(final Function<? super R, ? extends Either<L, NR>> f);
 
-    boolean isLeft();
+    boolean isRight();
 
     L getLeft();
     R getRight();
@@ -22,8 +22,8 @@ public interface Either<L, R> {
             }
 
             @Override
-            public boolean isLeft() {
-                return false;
+            public boolean isRight() {
+                return true;
             }
 
             @Override
@@ -47,8 +47,8 @@ public interface Either<L, R> {
             }
 
             @Override
-            public boolean isLeft() {
-                return true;
+            public boolean isRight() {
+                return false;
             }
 
             @Override

@@ -93,14 +93,12 @@ public class ParserTest extends BaseTest {
     }
 
     protected TripleExpression parse(final String expression, final boolean reparse) {
-        ops(expression.length());
         try {
             final ExpressionParser parser = new ExpressionParser();
             if (reparse) {
                 counter.nextTest();
                 parser.parse(expression);
                 counter.passed();
-                ops(expression.length());
             }
             counter.nextTest();
             final CommonExpression result = parser.parse(expression);
@@ -131,13 +129,12 @@ public class ParserTest extends BaseTest {
 
     private void check(final int[] vars, final TripleExpression expression, final Either<Reason, Integer> answer) {
         counter.nextTest();
-        op();
         try {
             final int actual = expression.evaluate(vars[0], vars[1], vars[2]);
-            assertTrue(String.format("Error expected for x=%d, y=%d, z=%d", vars[0], vars[1], vars[2]), !answer.isLeft());
+            assert answer.isRight() : String.format("Error expected for x=%d, y=%d, z=%d", vars[0], vars[1], vars[2]);
             assertEquals(String.format("f(%d, %d, %d)\n%s", vars[0], vars[1], vars[2], expression), actual, (int) answer.getRight());
         } catch (final Exception e) {
-            if (!answer.isLeft()) {
+            if (answer.isRight()) {
                 throw new AssertionError(String.format("No error expected for x=%d, y=%d, z=%d", vars[0], vars[1], vars[2]), e);
             }
         }
