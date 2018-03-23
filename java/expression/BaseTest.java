@@ -12,24 +12,16 @@ import java.util.stream.Stream;
 public abstract strictfp class BaseTest {
     public final Random random = new Random(7240958270458L);
 
-    private int ops;
     protected TestCounter counter = new TestCounter();
 
     protected BaseTest() {
+        Locale.setDefault(Locale.US);
+
         checkAssert(getClass());
     }
 
     public void assertTrue(final String message, final boolean condition) {
         assert condition : message;
-        op();
-    }
-
-    protected void op() {
-        ops(1);
-    }
-
-    protected void ops(final int ops) {
-        this.ops += ops;
     }
 
     public void assertEquals(final String message, final int actual, final int expected) {
@@ -51,11 +43,7 @@ public abstract strictfp class BaseTest {
     }
 
     private void checkAssert(final Class<?> c) {
-        Locale.setDefault(Locale.US);
-
-        boolean assertsEnabled = false;
-        assert assertsEnabled = true;
-        if (!assertsEnabled) {
+        if (!c.desiredAssertionStatus()) {
             throw new AssertionError("You should enable assertions by running 'java -ea " + c.getName() + "'");
         }
     }

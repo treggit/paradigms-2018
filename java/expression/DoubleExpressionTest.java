@@ -33,7 +33,6 @@ public class DoubleExpressionTest extends ExpressionTest {
 
     private void testExpression(final String description, final DoubleExpression actual, final DoubleExpression expected) {
         System.out.println("Testing " + description);
-        ops(description.length());
         for (int i = 0; i < 10; i++) {
             check(i, actual, expected);
             check(-i, actual, expected);

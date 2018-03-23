@@ -31,7 +31,6 @@ public class ExpressionTest extends BaseTest {
 
     private void testExpression(final String description, final Expression actual, final Expression expected) {
         System.out.println("Testing " + description);
-        ops(description.length());
         for (int i = 0; i < 10; i++) {
             counter.nextTest();
             assertEquals(String.format("f(%d)", i), evaluate(actual, i), evaluate(expected, i));
