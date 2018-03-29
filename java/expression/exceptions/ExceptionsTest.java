@@ -1,8 +1,13 @@
 package expression.exceptions;
 
 import expression.parser.Either;
-import expression.TripleExpression;
+import expression.CommonExpression;
 import expression.Variable;
+import expression.CheckedAdd;
+import expression.CheckedSubtract;
+import expression.CheckedDivide;
+import expression.CheckedMultiply;
+import expression.CheckedNegate;
 import expression.parser.ParserTest;
 
 import java.util.ArrayList;
@@ -72,7 +77,7 @@ public class ExceptionsTest extends ParserTest {
         testOverflow((a, b) -> -b, "<- ignore first argument, unary -", new CheckedNegate(VY));
     }
 
-    protected void testOverflow(final LongBinaryOperator f, final String op, final TripleExpression expression) {
+    protected void testOverflow(final LongBinaryOperator f, final String op, final CommonExpression expression) {
         for (final int a : OVERFLOW_VALUES) {
             for (final int b : OVERFLOW_VALUES) {
                 final long expected = f.applyAsLong(a, b);
@@ -95,7 +100,7 @@ public class ExceptionsTest extends ParserTest {
         testParsingErrors();
     }
 
-    protected TripleExpression parse(final String expression, final boolean reparse) {
+    protected CommonExpression parse(final String expression, final boolean reparse) {
         final Parser parser = new ExpressionParser();
         if (expression.length() > 10) {
             loop: for (final char ch : CHARS) {
@@ -128,7 +133,7 @@ public class ExceptionsTest extends ParserTest {
         }
         counter.nextTest();
         try {
-            final TripleExpression parse = parser.parse(expression);
+            final CommonExpression parse = parser.parse(expression);
             counter.passed();
             return parse;
         } catch (final Exception e) {

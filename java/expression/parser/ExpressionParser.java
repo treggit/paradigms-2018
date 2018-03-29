@@ -1,6 +1,5 @@
 package expression.parser;
 
-import base.Triple;
 import expression.*;
 
 public class ExpressionParser implements Parser{
@@ -90,7 +89,7 @@ public class ExpressionParser implements Parser{
                 curToken = getToken();
                 return new Variable(name);
             case MINUS:
-                return new UnaryMinus(exprHigh());
+                return new CheckedNegate(exprHigh());
             case OP_BR:
                 CommonExpression expr = expr();
                 curToken = getToken();
@@ -105,10 +104,10 @@ public class ExpressionParser implements Parser{
         while (true) {
             switch (curToken) {
                 case MUL:
-                    expr = new Multiply(expr, exprHigh());
+                    expr = new CheckedMultiply(expr, exprHigh());
                     break;
                 case DIV:
-                    expr = new Divide(expr, exprHigh());
+                    expr = new CheckedDivide(expr, exprHigh());
                     break;
                 default:
                     return expr;
@@ -121,11 +120,11 @@ public class ExpressionParser implements Parser{
         while (true) {
             switch (curToken) {
                 case PLUS:
-                    expr = new Add(expr, exprMid());
+                    expr = new CheckedAdd(expr, exprMid());
                     break;
                 case MINUS:
                     CommonExpression e = exprMid();
-                    expr = new Subtract(expr, e);
+                    expr = new CheckedSubtract(expr, e);
                     break;
                 default:
                     return expr;
@@ -138,7 +137,7 @@ public class ExpressionParser implements Parser{
 
         while (true) {
             if (curToken == Token.AND) {
-                expr = new And(expr, exprLow());
+                expr = new CheckedAnd(expr, exprLow());
             } else {
                 return expr;
             }
@@ -150,7 +149,7 @@ public class ExpressionParser implements Parser{
 
         while (true) {
             if (curToken == Token.XOR) {
-                expr = new Xor(expr, exprAnd());
+                expr = new CheckedXor(expr, exprAnd());
             } else {
                 return expr;
             }
@@ -162,7 +161,7 @@ public class ExpressionParser implements Parser{
 
         while (true) {
             if (curToken == Token.OR) {
-                expr = new Or(expr, exprXor());
+                expr = new CheckedOr(expr, exprXor());
             } else {
                 return expr;
             }

@@ -1,7 +1,7 @@
 package expression;
 
-public class Xor extends BinaryOperator {
-    public Xor(CommonExpression a, CommonExpression b) {
+public class CheckedXor extends BinaryOperator {
+    public CheckedXor(CommonExpression a, CommonExpression b) {
         super(a, b);
     }
 

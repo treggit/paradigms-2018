@@ -1,7 +1,7 @@
 package expression;
 
-public class Or extends BinaryOperator {
-    public Or(CommonExpression a, CommonExpression b) {
+public class CheckedOr extends BinaryOperator {
+    public CheckedOr(CommonExpression a, CommonExpression b) {
         super(a, b);
     }
 
