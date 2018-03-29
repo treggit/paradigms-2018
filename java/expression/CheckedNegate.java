@@ -9,11 +9,10 @@ public class CheckedNegate extends UnaryOperator {
     }
 
     protected int calc(int a) throws EvaluationException {
-        try {
-            return Math.subtractExact(0, a);
-        } catch (ArithmeticException e) {
-            throw new OverflowException("subtract");
+        if (a == Integer.MIN_VALUE) {
+            throw new OverflowException("negation");
         }
+        return -a;
     }
 
 }

@@ -50,9 +50,8 @@ public class ExpressionParser implements Parser{
             if (isNeg) {
                 dig = -dig;
             }
-            try {
-                res = Math.addExact(Math.multiplyExact(res, 10), dig);
-            } catch (ArithmeticException e) {
+            res = res * 10 + dig;
+            if ((isNeg && res > 0) || (!isNeg && res < 0)) {
                 throw new IllegalConstException(expression, prevPointer);
             }
             exprPointer++;

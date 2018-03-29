@@ -10,10 +10,9 @@ public class CheckedAdd extends BinaryOperator {
     }
 
     protected int calc(int a, int b) throws EvaluationException{
-        try {
-            return Math.addExact(a, b);
-        } catch (ArithmeticException e) {
+        if ((b < 0 && Integer.MIN_VALUE - b > a) || (b > 0 && Integer.MAX_VALUE - b < a)) {
             throw new OverflowException("add");
         }
+        return a + b;
     }
 }

@@ -10,11 +10,10 @@ public class CheckedSubtract extends BinaryOperator {
     }
 
     protected int calc(int a, int b) throws EvaluationException {
-        try {
-            return Math.subtractExact(a, b);
-        } catch (ArithmeticException e) {
-            throw new OverflowException("multiply");
+        if ((b < 0 && Integer.MAX_VALUE + b < a) || (b > 0 && Integer.MIN_VALUE + b > a)) {
+            throw new OverflowException("subtract");
         }
+        return a - b;
     }
 
 }
