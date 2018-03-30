@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class ExceptionsPowLogTest extends ExceptionsAbsSqrtTest {
+public class ExceptionsPowLogTest extends ExceptionsTest {
     public static final Reason POWER = new Reason("power");
     public static final Reason LOG = new Reason("log");
 
