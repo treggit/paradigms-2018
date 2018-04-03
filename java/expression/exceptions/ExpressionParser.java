@@ -34,7 +34,8 @@ public class ExpressionParser implements Parser{
         MUL, DIV, PLUS,
         MINUS, CL_BR, OP_BR,
         NUM, VAR, END,
-        XOR, AND, OR
+        XOR, AND, OR,
+        LOG10, POW10
     }
 
     private void skipWhitespaces() {
@@ -43,23 +44,21 @@ public class ExpressionParser implements Parser{
         }
     }
 
-    private int getNumberValue() throws ParsingException {
-        int res = 0;
-        while (exprPointer < expression.length() && Character.isDigit(expression.charAt(exprPointer))) {
-            int dig = Character.digit(expression.charAt(exprPointer), 10);
-            if (isNeg) {
-                dig = -dig;
-            }
-            res = res * 10 + dig;
-            if ((isNeg && res > 0) || (!isNeg && res < 0)) {
-                throw new IllegalConstException(expression, prevPointer);
-            }
-            exprPointer++;
-        }
+    private int getNumberValue()  {
+        StringBuilder sb = new StringBuilder();
         if (isNeg) {
             isNegConst = true;
+            sb.append('-');
         }
-        return res;
+        while (exprPointer < expression.length() && Character.isDigit(expression.charAt(exprPointer))) {
+            sb.append(expression.charAt(exprPointer));
+            exprPointer++;
+        }
+        try {
+            return Integer.parseInt(sb.toString());
+        } catch (NumberFormatException e) {
+            throw new IllegalConstException(expression, prevPointer);
+        }
     }
 
     private String getName() {
@@ -71,7 +70,7 @@ public class ExpressionParser implements Parser{
         return sb.toString();
     }
 
-    private Token getToken() throws ParsingException{
+    private Token getToken() {
         skipWhitespaces();
         prevPointer = exprPointer;
         if (exprPointer == expression.length()) {
@@ -104,14 +103,30 @@ public class ExpressionParser implements Parser{
                     return Token.NUM;
                 }
                 if (Character.isLetter(ch)) {
+                    isNeg = false;
                     name = getName();
+                    if (name.equals("log")) {
+                        curToken = getToken();
+                        //System.out.println(number);
+                        if (curToken == Token.NUM && number == 10) {
+                            return Token.LOG10;
+                        }
+                        exprPointer = prevPointer;
+                    }
+                    if (name.equals("pow")) {
+                        curToken = getToken();
+                        if (curToken == Token.NUM && number == 10) {
+                            return Token.POW10;
+                        }
+                        exprPointer = prevPointer;
+                    }
                     return Token.VAR;
                 }
                 throw new UnsupportedOperation(expression, prevPointer);
         }
     }
 
-    private void checkOperator() throws ParsingException {
+    private void checkOperator() {
         if (curToken == Token.OP_BR) {
             throw new MissingOperatorException(expression, prevPointer);
         }
@@ -123,7 +138,7 @@ public class ExpressionParser implements Parser{
         }
     }
 
-    private CommonExpression exprHigh() throws ParsingException {
+    private CommonExpression exprHigh() {
         curToken = getToken();
         isNeg = false;
         CommonExpression expr;
@@ -157,12 +172,18 @@ public class ExpressionParser implements Parser{
                 unclosedBrackets--;
                 curToken = getToken();
                 return expr;
+            case LOG10:
+                expr = exprHigh();
+                return new Log10(expr);
+            case POW10:
+                expr = exprHigh();
+                return new Pow10(expr);
             default:
                 throw new MissingPrimaryException(expression, prevPointer); //primary expected
         }
     }
 
-    private CommonExpression exprMid() throws ParsingException {
+    private CommonExpression exprMid() {
         CommonExpression expr = exprHigh();
         while (true) {
             switch (curToken) {
@@ -178,7 +199,7 @@ public class ExpressionParser implements Parser{
         }
     }
 
-    private CommonExpression exprLow() throws ParsingException {
+    private CommonExpression exprLow() {
         CommonExpression expr = exprMid();
         while (true) {
             switch (curToken) {
@@ -195,7 +216,7 @@ public class ExpressionParser implements Parser{
         }
     }
 
-    private CommonExpression exprAnd() throws ParsingException {
+    private CommonExpression exprAnd() {
         CommonExpression expr = exprLow();
 
         while (true) {
@@ -209,7 +230,7 @@ public class ExpressionParser implements Parser{
         }
     }
 
-    private CommonExpression exprXor() throws ParsingException {
+    private CommonExpression exprXor() {
         CommonExpression expr = exprAnd();
 
         while (true) {
@@ -223,7 +244,7 @@ public class ExpressionParser implements Parser{
         }
     }
 
-    private CommonExpression exprOr() throws ParsingException {
+    private CommonExpression exprOr() {
         CommonExpression expr = exprXor();
 
         while (true) {
@@ -237,7 +258,7 @@ public class ExpressionParser implements Parser{
         }
     }
 
-    private CommonExpression expr() throws ParsingException {
+    private CommonExpression expr()  {
         return exprOr();
     }
 
