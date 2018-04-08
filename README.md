@@ -3,6 +3,21 @@
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Исходный код к лекции по JavaScript
+
+[Скрипт с примерами](javascript/script.js)
+
+[Запуск в браузере](javascript/RunJS.html)
+
+Запуск из консоли
+ * [на Java](javascript/RunJS.java): `java -cp . RunJS`
+ * [на jjs](javascript/RunJS.jjs.js): `jjs RunJS.jjs.js`
+ * [на node.js](javascript/RunJS.node.js): `node RunJS.node.js`
+
+Обратите внимание на реализацию функции `mCurry` в разделе про
+[функции высшего порядка](javascript/examples/functions-hi.js).
+
+
 ## Домашнее задание 8. Вычисление в различных типах
 
 Модификации
