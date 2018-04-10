@@ -1,6 +1,6 @@
 package expression.exceptions;
 
-import expression.*;
+import expression.operators.*;
 
 import java.util.HashSet;
 import java.util.Set;

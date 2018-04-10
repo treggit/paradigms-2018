@@ -1,7 +1,6 @@
 package expression.exceptions;
 
-import expression.CommonExpression;
-import expression.TripleExpression;
+import expression.operators.CommonExpression;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)

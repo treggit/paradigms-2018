@@ -1,13 +1,7 @@
 package expression.exceptions;
 
 import expression.parser.Either;
-import expression.CommonExpression;
-import expression.Variable;
-import expression.CheckedAdd;
-import expression.CheckedSubtract;
-import expression.CheckedDivide;
-import expression.CheckedMultiply;
-import expression.CheckedNegate;
+import expression.operators.*;
 import expression.parser.ParserTest;
 
 import java.util.ArrayList;
