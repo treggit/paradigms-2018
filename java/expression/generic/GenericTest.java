@@ -1,6 +1,6 @@
 package expression.generic;
 
-import expression.BaseTest;
+import expression.operators.BaseTest;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
