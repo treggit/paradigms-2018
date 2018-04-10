@@ -1,4 +1,4 @@
-package expression;
+package expression.operators;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)

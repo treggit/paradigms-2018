@@ -1,4 +1,4 @@
-package expression;
+package expression.operators;
 
 public class CheckedXor extends BinaryOperator {
     public CheckedXor(CommonExpression a, CommonExpression b) {

@@ -1,6 +1,4 @@
-package expression;
-
-import expression.exceptions.EvaluationException;
+package expression.operators;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)

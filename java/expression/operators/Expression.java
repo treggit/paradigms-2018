@@ -1,4 +1,4 @@
-package expression;
+package expression.operators;
 
 import expression.exceptions.EvaluationException;
 

@@ -1,4 +1,4 @@
-package expression;
+package expression.operators;
 
 public class Const implements CommonExpression {
     private Number value;

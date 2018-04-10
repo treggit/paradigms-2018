@@ -1,6 +1,6 @@
 package expression.parser;
 
-import expression.TripleExpression;
+import expression.operators.TripleExpression;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)

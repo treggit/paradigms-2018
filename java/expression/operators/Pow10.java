@@ -1,6 +1,5 @@
-package expression;
+package expression.operators;
 
-import expression.exceptions.EvaluationException;
 import expression.exceptions.IllegalDegreeValue;
 import expression.exceptions.OverflowException;
 
@@ -9,7 +8,7 @@ public class Pow10 extends UnaryOperator{
         super(expression);
     }
 
-    void check(int a, int b) {
+    private void check(int a, int b) {
         if (a > 0 && b > 0 && Integer.MAX_VALUE / b < a) {
             throw new OverflowException("pow");
         }

@@ -1,4 +1,4 @@
-package expression;
+package expression.operators;
 
 public class Variable implements CommonExpression {
     private Number value;

@@ -1,4 +1,4 @@
-package expression;
+package expression.operators;
 
 import expression.exceptions.EvaluationException;
 import expression.exceptions.OverflowException;
@@ -9,7 +9,7 @@ public class CheckedMultiply extends BinaryOperator {
         super(firstOperand, secondOperand);
     }
 
-    void check(int a, int b) {
+    private void check(int a, int b) {
         if (a > 0 && b > 0 && Integer.MAX_VALUE / b < a) {
             throw new OverflowException("multiply");
         }

@@ -1,4 +1,4 @@
-package expression;
+package expression.operators;
 
 public class CheckedAnd extends BinaryOperator {
     public CheckedAnd(CommonExpression a, CommonExpression b) {
