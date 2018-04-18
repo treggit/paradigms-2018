@@ -136,7 +136,7 @@ public class LongOperation implements GenericOperationTable <Long> {
         return a ^ b;
     }
 
-    void checkBinPow(final Long a) {
+    private void checkBinPow(final Long a) {
         if (a < 0) {
             throw new IllegalDegreeValue("Positive degree value expected");
         }

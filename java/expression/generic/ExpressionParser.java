@@ -3,7 +3,9 @@ package expression.generic;
 import expression.generic.operators.*;
 import expression.exceptions.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ExpressionParser<T> implements Parser<T> {
@@ -16,7 +18,7 @@ public class ExpressionParser<T> implements Parser<T> {
     private Token curToken;
     private boolean isNeg = false;
     private boolean isNegConst = false;
-    private int unclosedBrackets = 0;
+    private List<Integer> unclosedBrackets;
     private final GenericOperationTable<T> operation;
 
     public ExpressionParser(GenericOperationTable<T> operation) {
@@ -27,8 +29,9 @@ public class ExpressionParser<T> implements Parser<T> {
     }
 
     private void init() {
-        exprPointer = prevPointer = unclosedBrackets = 0;
+        exprPointer = prevPointer = 0;
         isNegConst = isNeg = false;
+        unclosedBrackets = new ArrayList<>();
     }
 
     static private Set<String> legalNames = new HashSet<>();
@@ -47,19 +50,19 @@ public class ExpressionParser<T> implements Parser<T> {
         }
     }
 
-    private void doubleConstructor(StringBuilder sb) {
-        if (exprPointer < expression.length() && expression.charAt(exprPointer) == '.'
-                || expression.charAt(exprPointer) == ',' || Character.toLowerCase(expression.charAt(exprPointer)) == 'e') {
-            sb.append(expression.charAt(exprPointer++));
+    private void digitConstructor(StringBuilder sb) {
+        while (exprPointer < expression.length() && Character.isDigit(expression.charAt(exprPointer))) {
+            sb.append(expression.charAt(exprPointer));
+            exprPointer++;
         }
+    }
 
+    private void doubleConstructor(StringBuilder sb) {
         if (exprPointer < expression.length() && sb.length() > 0 && Character.toLowerCase(expression.charAt(exprPointer)) == 'e'
                 && (expression.charAt(exprPointer) == '-' || expression.charAt(exprPointer) == '+')) {
             sb.append(expression.charAt(exprPointer++));
         }
-        while (exprPointer < expression.length() && Character.isDigit(expression.charAt(exprPointer))) {
-            sb.append(expression.charAt(exprPointer++));
-        }
+        digitConstructor(sb);
     }
 
     private T getNumberValue() {
@@ -68,12 +71,10 @@ public class ExpressionParser<T> implements Parser<T> {
             isNegConst = true;
             sb.append('-');
         }
-        while (exprPointer < expression.length() && Character.isDigit(expression.charAt(exprPointer))) {
-            sb.append(expression.charAt(exprPointer));
-            exprPointer++;
-        }
+        digitConstructor(sb);
         if (exprPointer < expression.length() && (expression.charAt(exprPointer) == '.'
                 || expression.charAt(exprPointer) == ',' || Character.toLowerCase(expression.charAt(exprPointer)) == 'e')) {
+            sb.append(expression.charAt(exprPointer++));
             doubleConstructor(sb);
         }
         try {
@@ -151,7 +152,7 @@ public class ExpressionParser<T> implements Parser<T> {
         if (curToken == Token.OP_BR) {
             throw new MissingOperatorException(expression, prevPointer);
         }
-        if (curToken == Token.CL_BR && unclosedBrackets == 0) {
+        if (curToken == Token.CL_BR && unclosedBrackets.isEmpty()) {
             throw new MissingOpeningBracketException(expression, prevPointer);
         }
         if (curToken == Token.VAR || curToken == Token.NUM) {
@@ -169,10 +170,10 @@ public class ExpressionParser<T> implements Parser<T> {
                 checkOperator();
                 return new Const<>(number);
             case VAR:
-                curToken = getToken();
                 if (!legalNames.contains(name)) {
                     throw new UnsupportedVariableName(expression, prevPointer);
                 }
+                curToken = getToken();
                 checkOperator();
                 return new Variable<>(name);
             case MINUS:
@@ -185,12 +186,12 @@ public class ExpressionParser<T> implements Parser<T> {
                 }
                 return new CheckedNegate<>(expr, operation);
             case OP_BR:
-                unclosedBrackets++;
+                unclosedBrackets.add(prevPointer);
                 expr = expr();
                 if (curToken != Token.CL_BR) {
-                    throw new MissingClosingBracketException(expression, prevPointer);
+                    throw new MissingClosingBracketException(expression, unclosedBrackets.get(unclosedBrackets.size() - 1));
                 }
-                unclosedBrackets--;
+                unclosedBrackets.remove(unclosedBrackets.size() - 1);
                 curToken = getToken();
                 return expr;
             case LOG10:
@@ -288,7 +289,7 @@ public class ExpressionParser<T> implements Parser<T> {
         this.expression = expression;
         init();
         CommonExpression<T> res = expr();
-        if (curToken == Token.CL_BR && unclosedBrackets == 0) {
+        if (curToken == Token.CL_BR && unclosedBrackets.isEmpty()) {
             throw new MissingOpeningBracketException(expression, prevPointer);
         }
         if (exprPointer != expression.length()) {

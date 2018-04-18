@@ -136,7 +136,7 @@ public class ShortOperation implements GenericOperationTable <Short> {
         return (short) (a ^ b);
     }
 
-    void checkBinPow(final Short a) {
+    private void checkBinPow(final Short a) {
         if (a < 0) {
             throw new IllegalDegreeValue("Positive degree value expected");
         }

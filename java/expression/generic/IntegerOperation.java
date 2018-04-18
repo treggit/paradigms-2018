@@ -136,7 +136,7 @@ public class IntegerOperation implements GenericOperationTable <Integer> {
         return a ^ b;
     }
 
-    void checkBinPow(final Integer a) {
+    private void checkBinPow(final Integer a) {
         if (a < 0) {
             throw new IllegalDegreeValue("Positive degree value expected");
         }
