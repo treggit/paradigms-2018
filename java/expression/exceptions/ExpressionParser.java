@@ -2,7 +2,9 @@ package expression.exceptions;
 
 import expression.operators.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ExpressionParser implements Parser{
@@ -15,11 +17,13 @@ public class ExpressionParser implements Parser{
     private Token curToken;
     private boolean isNeg = false;
     private boolean isNegConst = false;
-    private int unclosedBrackets = 0;
+    private List<Integer> unclosedBrackets;
 
-    void init() {
-        exprPointer = prevPointer = unclosedBrackets = 0;
+    private void init() {
+        exprPointer = 0;
+        prevPointer = 0;
         isNegConst = isNeg = false;
+        unclosedBrackets = new ArrayList<>();
     }
 
     static private Set <String> legalNames = new HashSet<>();
@@ -107,7 +111,6 @@ public class ExpressionParser implements Parser{
                     name = getName();
                     if (name.equals("log")) {
                         curToken = getToken();
-                        //System.out.println(number);
                         if (curToken == Token.NUM && number == 10) {
                             return Token.LOG10;
                         }
@@ -130,7 +133,7 @@ public class ExpressionParser implements Parser{
         if (curToken == Token.OP_BR) {
             throw new MissingOperatorException(expression, prevPointer);
         }
-        if (curToken == Token.CL_BR && unclosedBrackets == 0) {
+        if (curToken == Token.CL_BR && unclosedBrackets.isEmpty()) {
             throw new MissingOpeningBracketException(expression, prevPointer);
         }
         if (curToken == Token.VAR || curToken == Token.NUM) {
@@ -148,11 +151,11 @@ public class ExpressionParser implements Parser{
                 checkOperator();
                 return new Const(number);
             case VAR:
-                curToken = getToken();
-                checkOperator();
                 if (!legalNames.contains(name)) {
                     throw new UnsupportedVariableName(expression, prevPointer);
                 }
+                curToken = getToken();
+                checkOperator();
                 return new Variable(name);
             case MINUS:
                 isNeg = true;
@@ -164,12 +167,12 @@ public class ExpressionParser implements Parser{
                 }
                 return new CheckedNegate(expr);
             case OP_BR:
-                unclosedBrackets++;
+                unclosedBrackets.add(prevPointer);
                 expr = expr();
                 if (curToken != Token.CL_BR) {
-                    throw new MissingClosingBracketException(expression, prevPointer);
+                    throw new MissingClosingBracketException(expression, unclosedBrackets.get(unclosedBrackets.size() - 1));
                 }
-                unclosedBrackets--;
+                unclosedBrackets.remove(unclosedBrackets.size() - 1);
                 curToken = getToken();
                 return expr;
             case LOG10:
@@ -267,7 +270,7 @@ public class ExpressionParser implements Parser{
         this.expression = expression;
         init();
         CommonExpression res = expr();
-        if (curToken == Token.CL_BR && unclosedBrackets == 0) {
+        if (curToken == Token.CL_BR && unclosedBrackets.isEmpty()) {
             throw new MissingOpeningBracketException(expression, prevPointer);
         }
         if (exprPointer != expression.length()) {
