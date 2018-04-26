@@ -120,7 +120,7 @@ public class ObjectExpressionTest extends BaseJavascriptTest<JSEngine> {
     }
 
     public static void main(final String... args) {
-        test(ObjectExpressionTest.class, ObjectExpressionTest::new, new VariablesTests(), args, ARITHMETIC_OBJECT);
+        test(ObjectExpressionTest.class, ObjectExpressionTest::new, new ArithmeticTests(), args, ARITHMETIC_OBJECT);
     }
 
     public static <T extends BaseTest> void test(final Class<T> type, final BiFunction<Integer, Language, T> cons, final AbstractTests tests, final String[] args, final Dialect parsed) {
