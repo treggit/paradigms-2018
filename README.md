@@ -10,6 +10,15 @@
     * Код должен находиться в файле `objectExpression.js`.
     * [Исходный код тестов](javascript/jstest/PrefixParserTest.java)
         * Запускать c аргументом `easy` или `hard`
+
+
+## Домашнее задание 10. Объектные выражения на JavaScript
+
+Модификации
+ * *Базовая*
+    * Код должен находиться в файле `objectExpression.js`.
+    * [Исходный код тестов](javascript/jstest/ObjectExpressionTest.java)
+        * Запускать c аргументом `easy`, `hard` или `bonus`.
  * *Модификация*. Дополнительное реализовать поддержку:
     * унарных операций:
         * `Square` (`square`) — возведение в квадрат, `3 square` равно 9;
@@ -21,15 +30,6 @@
         * `Log` (`log`) — логарифм абсолютного значения аргумента
             по абсолютному значению основания `-2 -8 log` равно 3;
     * [Исходный код тестов](javascript/jstest/ObjectPowLogTest.java)
-
-
-## Домашнее задание 10. Объектные выражения на JavaScript
-
-Модификации
- * *Базовая*
-    * Код должен находиться в файле `objectExpression.js`.
-    * [Исходный код тестов](javascript/jstest/ObjectExpressionTest.java)
-        * Запускать c аргументом `easy`, `hard` или `bonus`.
 
 
 ## Домашнее задание 9. Функциональные выражения на JavaScript
