@@ -89,8 +89,10 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
     }
 
     protected void evaluate(final double[] vars, final double answer, final double precision) {
+        counter.nextTest();
         final Engine.Result<Number> result = engine.evaluate(vars);
         assertEquals(result.context, precision, result.value.doubleValue(), answer);
+        counter.passed();
     }
 
     public static Dialect dialect(final String variable, final String constant, final BiFunction<String, List<String>, String> nary) {
