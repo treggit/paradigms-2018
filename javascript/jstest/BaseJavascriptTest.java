@@ -174,9 +174,9 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
         public final T answer;
 
         protected Expr(final String parsed, final String unparsed, final T answer) {
-            this.parsed = parsed;
-            this.unparsed = unparsed;
-            this.answer = answer;
+            this.parsed = Objects.requireNonNull(parsed);
+            this.unparsed = Objects.requireNonNull(unparsed);
+            this.answer = Objects.requireNonNull(answer);
         }
 
         public <R> Expr<R> map(final Function<T, R> f) {
