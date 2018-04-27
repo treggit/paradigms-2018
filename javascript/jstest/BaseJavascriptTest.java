@@ -77,11 +77,13 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
             test(test.parsed, test.unparsed);
             test(language.addSpaces(test.parsed, random), test.unparsed);
             if (testParsing) {
+                counter.nextTest();
                 final String expr = parse(test.unparsed);
                 test(expr, test.unparsed);
 
                 engine.parse(expr);
                 evaluate(vars, answer, EPS);
+                counter.passed();
             }
         }
     }

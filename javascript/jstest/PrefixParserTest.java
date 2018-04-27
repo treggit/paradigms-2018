@@ -32,11 +32,15 @@ public class PrefixParserTest extends ObjectExpressionTest {
             final int index = randomInt(unparsed.length());
             final char c = unparsed.charAt(index);
             if (!Character.isDigit(c) && !Character.isWhitespace(c) && c != '-'){
+                counter.nextTest();
                 assertParsingError(unparsed.substring(0, index), "<SYMBOL REMOVED>", unparsed.substring(index + 1));
+                counter.passed();
             }
             final char newC = INSERTIONS.charAt(randomInt(INSERTIONS.length()));
             if (!Character.isDigit(c) && c != '-') {
+                counter.nextTest();
                 assertParsingError(unparsed.substring(0, index), "<SYMBOL INSERTED -->", newC + unparsed.substring(index));
+                counter.passed();
             }
         }
     }

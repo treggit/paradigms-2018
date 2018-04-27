@@ -108,9 +108,11 @@ public class ObjectExpressionTest extends BaseJavascriptTest<JSEngine> {
 
     @Override
     protected void test(final String parsed, final String unparsed) {
+        counter.nextTest();
         testToString(parsed, unparsed);
 
         testToString(language.addSpaces(parsed, random), unparsed);
+        counter.passed();
     }
 
     private void testToString(final String expression, final String expected) {
