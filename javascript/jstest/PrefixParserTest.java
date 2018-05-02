@@ -1,7 +1,5 @@
 package jstest;
 
-import expression.BaseTest;
-
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */

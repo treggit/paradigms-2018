@@ -40,11 +40,24 @@ var cnst = function (a) {
     }
 };
 
+var cube = operator(function (a) {
+    return Math.pow(a, 3);
+});
+
+var cuberoot = operator(function (a) {
+    return Math.pow(a, 1/3);
+});
+
+
 var variable = function (name) {
     return function () {
         switch (name) {
             case "x":
                 return arguments[0];
+            case "y":
+                return arguments[1];
+            case "z":
+                return arguments[2];
         }
     };
 };
