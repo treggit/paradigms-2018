@@ -101,7 +101,14 @@ public abstract class AbstractTests implements Cloneable {
             return expr(
                     parsed.operation(name, rendered.stream().map(a -> a.parsed).collect(Collectors.toList())),
                     unparsed.operation(name, rendered.stream().map(a -> a.unparsed).collect(Collectors.toList())),
-                    vars -> operators.get(name).apply(rendered.stream().map(a -> a.answer).map(a -> a.evaluate(vars)).collect(Collectors.toList()))
+                    vars -> {
+                        final Operator<Double> operator = operators.get(name);
+                        assert operator != null : "Unknown operation " + name + " in " + getClass().getSimpleName();
+                        return operator.apply(rendered.stream()
+                                .map(a -> a.answer)
+                                .map(a -> a.evaluate(vars))
+                                .collect(Collectors.toList()));
+                    }
             );
         };
     }
