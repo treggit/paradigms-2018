@@ -47,7 +47,6 @@ public class ObjectExpressionTest extends BaseJavascriptTest<JSEngine> {
 
     protected ObjectExpressionTest(final int mode, final Language language) {
         super(new JSEngine("objectExpression.js", ".evaluate"), language, mode >= 1);
-        System.out.println(mode);
         testDiff = mode >= 2;
         testSimplify = mode >= 3;
     }

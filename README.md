@@ -10,6 +10,11 @@
     * Код должен находиться в файле `objectExpression.js`.
     * [Исходный код тестов](javascript/jstest/PrefixParserTest.java)
         * Запускать c аргументом `easy` или `hard`
+ * *Простая*. Дополнительное реализовать поддержку:
+    * унарных операций:
+        * `ArcTan` (`atan`) — синус, `(atan 2)` примерно равно 1.1;
+        * `Exp` (`Exp`) — косинус, `(exp 3)` примерно равно 20;
+    * [Исходный код тестов](javascript/jstest/PrefixAtanExpTest.java)
 
 
 ## Домашнее задание 10. Объектные выражения на JavaScript

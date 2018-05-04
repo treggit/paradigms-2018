@@ -75,6 +75,7 @@ public abstract strictfp class BaseTest {
     }
 
     public void run() {
+        System.out.println("=== Testing " + getClass().getSimpleName());
         test();
         counter.printStatus(getClass());
     }
