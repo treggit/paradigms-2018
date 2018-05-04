@@ -8,8 +8,8 @@ public class FunctionalPieMinMaxTest extends FunctionalPieTest {
         any("min3", 3, args -> args.stream().mapToDouble(a -> a).min().orElse(0));
         any("max5", 5, args -> args.stream().mapToDouble(a -> a).max().orElse(0));
         tests(
-                f("min3", n("x"), n("y"), n("z")),
-                f("max5", n("x"), n("y"), n("z"), n("pi"), n("e"))
+                f("min3", vx, vy, vz),
+                f("max5", vx, vy, vz, pi, e)
         );
     }}
 
